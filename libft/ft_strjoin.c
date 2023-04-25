@@ -6,11 +6,39 @@
 /*   By: nmaazouz <nmaazouz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/10 09:57:41 by nmaazouz          #+#    #+#             */
-/*   Updated: 2023/03/08 11:22:20 by nmaazouz         ###   ########.fr       */
+/*   Updated: 2023/04/22 12:23:24 by nmaazouz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
+
+char	*ft_strjoin_ch(char const *s1, char *s2, char c)
+{
+	int		size1;
+	int		size2;
+	char	*str;
+	int		total;
+
+	if (!s1 && !s2)
+		return (NULL);
+	if (!s1)
+		s1 = ft_strdup("");
+	if (!s2)
+		s2 = ft_strdup("");
+	size1 = ft_strlen(s1);
+	size2 = ft_strlen(s2);
+	total = size1 + size2 + 1;
+	str = (char *) malloc(total * sizeof(char) + 1);
+	if (!str)
+		return (0);
+	ft_memcpy(str, s1, size1);
+	ft_memcpy(str + size1, &c, 1);
+	ft_memcpy(str + size1 + 1, s2, size2);
+	ft_bzero(str + total, 1);
+	if (!*s1)
+		free((char *)s1);
+	return (str);
+}
 
 char	*ft_strjoin(char const *s1, char *s2)
 {
