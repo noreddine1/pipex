@@ -6,7 +6,7 @@
 /*   By: nmaazouz <nmaazouz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/05 19:56:21 by nmaazouz          #+#    #+#             */
-/*   Updated: 2023/04/09 13:32:12 by nmaazouz         ###   ########.fr       */
+/*   Updated: 2023/04/22 12:23:56 by nmaazouz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ int			ft_strlcat(char *dst, const char *src, int dstsize);
 void		*ft_calloc(int count, int size);
 char		*ft_strdup(const char *s1);
 char		*ft_substr(char const *s, unsigned int start, int len);
+char		*ft_strjoin_ch(char const *s1, char *s2, char c);
 char		*ft_strjoin(char const *s1, char *s2);
 char		*ft_strtrim(char const *s1, char const *set);
 char		**ft_split(char const *s, char c);

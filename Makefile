@@ -6,13 +6,13 @@
 #    By: nmaazouz <nmaazouz@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/04/19 23:30:42 by nmaazouz          #+#    #+#              #
-#    Updated: 2023/04/20 20:09:31 by nmaazouz         ###   ########.fr        #
+#    Updated: 2023/04/23 22:20:07 by nmaazouz         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = pipex
 CC      = cc
-CFLAGS  = -Wall -Werror -Wextra
+CFLAGS  = -Wall -Werror -Wextra -g
 INC = -I ./includes
 LIBFT_A = libft.a
 

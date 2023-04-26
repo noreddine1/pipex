@@ -6,7 +6,7 @@
 /*   By: nmaazouz <nmaazouz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/19 23:21:45 by nmaazouz          #+#    #+#             */
-/*   Updated: 2023/04/20 20:08:03 by nmaazouz         ###   ########.fr       */
+/*   Updated: 2023/04/26 08:51:21 by nmaazouz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 # define PIPEX_H
 
 # include "../libft/libft.h"
+#include <errno.h>
+#include <string.h>
 
 typedef struct s_pipe
 {
@@ -22,9 +24,9 @@ typedef struct s_pipe
 	int		in_file;
 	int		out_file;
 	int		pipe_fd[2];
-	char	*full_path;
-	char	**paths_of_cmds;
-	char	*cmd;
+	char	*path_env;
+	char	**cmd_and_flags;
+	char	*cmd_path;
 }	t_pipe;
 
 enum e_in_out{in, out};
@@ -36,6 +38,13 @@ enum e_in_out{in, out};
 char	*get_path(char **env);
 
 //--error.c
-void	ft_error(char *msg);
+void	ft_error(char *msg, int error);
+
+//--utils.c
+void	open_files(char **av, int ac, t_pipe *pipe);
+char	*ft_get_cmd_path(char *cmd, t_pipe pipex);
+void	execute(t_pipe pipex, char **av, char **env, int type);
+
+
 
 #endif
