@@ -6,7 +6,7 @@
 /*   By: nmaazouz <nmaazouz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/19 23:21:45 by nmaazouz          #+#    #+#             */
-/*   Updated: 2023/04/26 08:51:21 by nmaazouz         ###   ########.fr       */
+/*   Updated: 2023/04/27 13:59:56 by nmaazouz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 # define PIPEX_H
 
 # include "../libft/libft.h"
+#include <unistd.h>
+#include <fcntl.h>
 #include <errno.h>
 #include <string.h>
 
@@ -38,12 +40,14 @@ enum e_in_out{in, out};
 char	*get_path(char **env);
 
 //--error.c
-void	ft_error(char *msg, int error);
+void	ft_error(char *msg);
+void	ft_errorn(void);
 
 //--utils.c
 void	open_files(char **av, int ac, t_pipe *pipe);
 char	*ft_get_cmd_path(char *cmd, t_pipe pipex);
 void	execute(t_pipe pipex, char **av, char **env, int type);
+void	ft_fork(int	*pid);
 
 
 

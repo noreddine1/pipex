@@ -6,12 +6,12 @@
 /*   By: nmaazouz <nmaazouz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/15 17:56:16 by nmaazouz          #+#    #+#             */
-/*   Updated: 2023/04/26 08:52:14 by nmaazouz         ###   ########.fr       */
+/*   Updated: 2023/04/27 16:54:50 by nmaazouz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/pipex.h"
-#include <unistd.h>
+#include "pipex.h"
+
 /*
 ----parsing
 -
@@ -35,27 +35,31 @@
 */
 void	lk()
 {
-	system("leaks pipes");
+	system("leaks pipex");
 }
 
 int main(int ac, char **av, char **env)
 {
 	t_pipe	pipex;
-// atexit(lk);
-	(void) av;
+	int		status;
+
 	if (ac != 5)
-		ft_error(ERR_ARGS, errno);
+		ft_error(ERR_ARGS);
 	open_files(av, ac, &pipex);
 	if (pipe(pipex.pipe_fd) < 0)
-		ft_error("Error pipe", errno);
+		ft_errorn();
 	pipex.path_env = get_path(env);
 	if (pipex.path_env == NULL)
-		ft_error(NULL, errno);
-	pipex.pid1 = fork();
+		ft_error("path env not found");
+	ft_fork(&pipex.pid1);
 	if (pipex.pid1 == 0)
 		execute(pipex, av, env, in);
-	if (pipex.pid1 != 0)
+	ft_fork(&pipex.pid2);
+	if (pipex.pid2 == 0)
 		execute(pipex, av, env, out);
+	close(pipex.pipe_fd[0]);
+	close(pipex.pipe_fd[1]);
 	waitpid(pipex.pid1, NULL, 0);
-	return 0;
+	waitpid(pipex.pid2, &status, 0);
+	return (0);
 }

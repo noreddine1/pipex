@@ -6,19 +6,20 @@
 /*   By: nmaazouz <nmaazouz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/20 18:32:07 by nmaazouz          #+#    #+#             */
-/*   Updated: 2023/04/26 08:42:52 by nmaazouz         ###   ########.fr       */
+/*   Updated: 2023/04/27 16:47:37 by nmaazouz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
-void	ft_error(char *msg, int error)
+void	ft_error(char *msg)
 {
-	if (msg)
-	{
-		perror(msg);
-		exit(1);
-	}
-	perror(strerror(error));
-	exit(error);
+	ft_putstr_fd(msg, 2);
+	exit(EXIT_FAILURE);
+}
+
+void	ft_errorn(void)
+{
+	perror("Error");
+	exit(EXIT_FAILURE);
 }

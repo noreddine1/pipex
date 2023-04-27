@@ -6,12 +6,11 @@
 /*   By: nmaazouz <nmaazouz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/19 23:19:12 by nmaazouz          #+#    #+#             */
-/*   Updated: 2023/04/26 08:52:18 by nmaazouz         ###   ########.fr       */
+/*   Updated: 2023/04/27 13:58:00 by nmaazouz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
-#include <fcntl.h>
 
 char	*get_path(char **env)
 {
@@ -28,10 +27,10 @@ void	open_files(char **av, int ac, t_pipe *pipe)
 {
 	pipe->in_file = open(av[1], O_RDONLY);
 	if (pipe->in_file < 0)
-		ft_error(NULL, errno);
+		ft_errorn();
 	pipe->out_file = open(av[ac - 1], O_TRUNC | O_CREAT | O_RDWR, 0644);
 	if (pipe->out_file < 0)
-		ft_error(NULL, errno);
+		ft_errorn();
 }
 
 char	*ft_get_cmd_path(char *cmd, t_pipe pipex)
@@ -39,20 +38,24 @@ char	*ft_get_cmd_path(char *cmd, t_pipe pipex)
 	char	*command;
 	char	**paths;
 
-	// puts("hello");
 	paths = ft_split(pipex.path_env, ':');
 	if (paths == NULL)
-		ft_error("error", errno);
+		ft_error("Invalid command");
 	if (cmd && ft_strchr(cmd, '/') != 0)
+	{
 		if (access(cmd, F_OK) == 0)
 			return (cmd);
-	while (*paths)
+	}
+	else
 	{
-		command = ft_strjoin_ch(*paths, cmd, '/');
-		if (access(command, F_OK) == 0)
-			return (command);
-		free(command);
-		paths++;
+		while (*paths)
+		{
+			command = ft_strjoin_ch(*paths, cmd, '/');
+			if (access(command, F_OK) == 0)
+				return (command);
+			free(command);
+			paths++;
+		}
 	}
 	return (NULL);
 }
@@ -75,6 +78,13 @@ void	execute(t_pipe pipex, char **av, char **env, int type)
 	}
 	pipex.cmd_path = ft_get_cmd_path(pipex.cmd_and_flags[0], pipex);
 	if (pipex.cmd_path == NULL)
-		ft_error("Command not found", errno);
+		ft_error("Command not found");
 	execve(pipex.cmd_path,  pipex.cmd_and_flags, env);
+}
+
+void	ft_fork(int	*pid)
+{
+	*pid = fork();
+	if (*pid == -1)
+		ft_errorn();
 }
