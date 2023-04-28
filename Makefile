@@ -6,34 +6,67 @@
 #    By: nmaazouz <nmaazouz@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/04/19 23:30:42 by nmaazouz          #+#    #+#              #
-#    Updated: 2023/04/23 22:20:07 by nmaazouz         ###   ########.fr        #
+#    Updated: 2023/04/28 10:00:27 by nmaazouz         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME = pipex
 CC      = cc
-CFLAGS  = -Wall -Werror -Wextra -g
+CFLAGS  = -Wall -Werror -Wextra
+NAME    = pipex
+BONUS = pipex_bonus
 INC = -I ./includes
+HEAD_FILES = includes/pipex.h
 LIBFT_A = libft.a
 
 OBJ_DIR = obj/
+OBJ_BNS_DIR = obj_bonus/
 
-SRC_DIR = src/
+SRC_SH_DIR = src/shared/
+SRC_BN_DIR = src/bonus/
+SRC_MA_DIR = src/mandatory/
 
-SRC = pipex.c utils.c error.c
+SRC_SH = error.c utils.c
+SRC_MA = pipex.c
+SRC_BN = pipex_bonus.c
 
-SRC_PATH = $(addprefix $(SRC_DIR), $(SRC))
-OBJ_PATH = $(addprefix $(OBJ_DIR), $(SRC:%.c=%.o))
+SRC_SH_PATH = $(addprefix $(SRC_SH_DIR), $(SRC_SH))
+SRC_MA_PATH = $(addprefix $(SRC_MA_DIR), $(SRC_MA))
+SRC_BN_PATH = $(addprefix $(SRC_BN_DIR), $(SRC_BN))
 
-all: $(OBJ_DIR) $(LIBFT_A) $(NAME)
+SRC_MANDATORY = SRC_SH_PATH SRC_MA_PATH
+SRC_BONUS = SRC_SH_PATH SRC_BN_PATH
+
+OBJ_SH_PATH = $(addprefix $(OBJ_DIR), $(SRC_SH:%.c=%.o))
+OBJ_MA_PATH = $(addprefix $(OBJ_DIR), $(SRC_MA:%.c=%.o))
+OBJ_BN_PATH = $(addprefix $(OBJ_DIR), $(SRC_BN:%.c=%.o))
+
+OBJ_MANDATORY = $(OBJ_SH_PATH) $(OBJ_MA_PATH)
+OBJ_BONUS = $(OBJ_SH_PATH) $(OBJ_BN_PATH)
+
+all: $(LIBFT_A) $(OBJ_DIR) $(NAME)
+
+$(NAME): $(OBJ_SH_PATH) $(OBJ_MA_PATH)
+	$(CC) $(OBJ_MANDATORY) $(LIBFT_A) -o $@ $(INC)
 
 $(OBJ_DIR):
-	@mkdir $(OBJ_DIR)
+	@mkdir -p $(OBJ_DIR)
 
-$(NAME): $(OBJ_PATH) includes/pipex.h
-	$(CC) $(OBJ_PATH) $(LIBFT_A) -o $@ $(INC)
+$(OBJ_SH_PATH): $(OBJ_DIR)%.o: $(SRC_SH_DIR)%.c $(HEAD_FILES)
+	$(CC) $(CFLAGS) $(INC) -c $< -o $@
 
-$(OBJ_PATH): $(OBJ_DIR)%.o: $(SRC_DIR)%.c
+$(OBJ_MA_PATH): $(OBJ_DIR)%.o: $(SRC_MA_DIR)%.c $(HEAD_FILES)
+	$(CC) $(CFLAGS) $(INC) -c $< -o $@
+
+
+
+bonus: $(BONUS)
+	
+
+$(BONUS): $(OBJ_DIR) $(LIBFT_A) $(OBJ_SH_PATH) $(OBJ_BN_PATH)
+	$(CC) $(MLX_FLAGS) $(OBJ_BONUS) $(LIBFT_A) -o $@ $(INC)
+
+$(OBJ_BN_PATH): $(OBJ_DIR)%.o: $(SRC_BN_DIR)%.c $(HEAD_FILES)
+	@echo $(OBJ_BN_PATH)
 	$(CC) $(CFLAGS) $(INC) -c $< -o $@
 
 $(LIBFT_A):
@@ -43,12 +76,10 @@ $(LIBFT_A):
 clean:
 	@rm -rf $(OBJ_DIR)
 	@make -s -C libft clean
-	
+
 fclean: clean
-	@rm -f $(NAME) $(LIBFT_A)
-	
-re: fclean all
+	@rm -f $(BONUS) $(NAME) $(LIBFT_A)
 
+re: fclean all bonus
 
-
-.PHONY: all clean fclean re
+.PHONY: all bonus clean fclean re
