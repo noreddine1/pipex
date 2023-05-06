@@ -6,7 +6,7 @@
 /*   By: nmaazouz <nmaazouz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/19 23:19:12 by nmaazouz          #+#    #+#             */
-/*   Updated: 2023/04/27 13:58:00 by nmaazouz         ###   ########.fr       */
+/*   Updated: 2023/05/06 13:16:54 by nmaazouz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,24 +23,20 @@ char	*get_path(char **env)
 	return (NULL);
 }
 
-void	open_files(char **av, int ac, t_pipe *pipe)
+void	open_files(char **av, int ac, int *in_file, int *out_file)
 {
-	pipe->in_file = open(av[1], O_RDONLY);
-	if (pipe->in_file < 0)
+	*in_file = open(av[1], O_RDONLY);
+	if (*in_file < 0)
 		ft_errorn();
-	pipe->out_file = open(av[ac - 1], O_TRUNC | O_CREAT | O_RDWR, 0644);
-	if (pipe->out_file < 0)
+	*out_file = open(av[ac - 1], O_TRUNC | O_CREAT | O_RDWR, 0644);
+	if (*out_file < 0)
 		ft_errorn();
 }
 
-char	*ft_get_cmd_path(char *cmd, t_pipe pipex)
+char	*ft_get_cmd_path(char *cmd, char **paths)
 {
 	char	*command;
-	char	**paths;
 
-	paths = ft_split(pipex.path_env, ':');
-	if (paths == NULL)
-		ft_error("Invalid command");
 	if (cmd && ft_strchr(cmd, '/') != 0)
 	{
 		if (access(cmd, F_OK) == 0)
@@ -60,31 +56,39 @@ char	*ft_get_cmd_path(char *cmd, t_pipe pipex)
 	return (NULL);
 }
 
-void	execute(t_pipe pipex, char **av, char **env, int type)
+void	execute(char *av, char **env, char **paths)
 {
-	if (type == in)
+	char *cmd_path;
+	char **args;
+
+	args = ft_split(av, ' ');
+	if (args == NULL)
+		ft_error("Error split");
+	if (args[0] == NULL)
+		ft_error("command not found");
+	cmd_path = ft_get_cmd_path(args[0], paths);
+	if (cmd_path == NULL)
+		ft_error("Command not found");
+	execve(cmd_path, args, env);
+}
+
+void	redirecte(char *av, char **env, char **paths)
+{
+	int		fd[2];
+	pid_t	pid;
+
+	ft_pipe(fd);
+	ft_fork(&pid);
+	if (pid == 0)
 	{
-		dup2(pipex.pipe_fd[1], 1);
-		close(pipex.pipe_fd[0]);
-		dup2(pipex.in_file, 0);
-		pipex.cmd_and_flags = ft_split(av[2], ' ');
+		close(fd[0]);
+		dup2(fd[1], std_out);
+		execute(av, env, paths);
 	}
 	else
 	{
-		dup2(pipex.pipe_fd[0], 0);
-		close(pipex.pipe_fd[1]);
-		dup2(pipex.out_file, 1);
-		pipex.cmd_and_flags = ft_split(av[3], ' ');
+		close(fd[1]);
+		dup2(fd[0], std_in);
+		waitpid(pid, NULL, 0);
 	}
-	pipex.cmd_path = ft_get_cmd_path(pipex.cmd_and_flags[0], pipex);
-	if (pipex.cmd_path == NULL)
-		ft_error("Command not found");
-	execve(pipex.cmd_path,  pipex.cmd_and_flags, env);
-}
-
-void	ft_fork(int	*pid)
-{
-	*pid = fork();
-	if (*pid == -1)
-		ft_errorn();
 }
