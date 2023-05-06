@@ -6,7 +6,7 @@
 /*   By: nmaazouz <nmaazouz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/05 19:56:21 by nmaazouz          #+#    #+#             */
-/*   Updated: 2023/04/22 12:23:56 by nmaazouz         ###   ########.fr       */
+/*   Updated: 2023/05/05 01:27:15 by nmaazouz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,7 @@ void		ft_putchar_fd(char c, int fd);
 void		ft_putstr_fd(char *s, int fd);
 void		ft_putendl_fd(char *s, int fd);
 void		ft_putnbr_fd(int n, int fd);
+void		free_split(char	**strs);
 
 typedef struct s_lst
 {

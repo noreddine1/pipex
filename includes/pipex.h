@@ -6,7 +6,7 @@
 /*   By: nmaazouz <nmaazouz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/19 23:21:45 by nmaazouz          #+#    #+#             */
-/*   Updated: 2023/04/27 13:59:56 by nmaazouz         ###   ########.fr       */
+/*   Updated: 2023/05/05 04:35:56 by nmaazouz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ typedef struct s_pipe
 	char	*cmd_path;
 }	t_pipe;
 
-enum e_in_out{in, out};
+enum e_std{std_in, std_out};
 
 # define ERR_IN_FILE "Error infile"
 # define ERR_OUT_FILE "Error outfile"
@@ -39,15 +39,23 @@ enum e_in_out{in, out};
 
 char	*get_path(char **env);
 
+//---ft_function.c
+void    ft_fork(int *pid);
+void    ft_dup2(int fd1, int fd2);
+void    ft_pipe(int *fd);
+
 //--error.c
 void	ft_error(char *msg);
 void	ft_errorn(void);
 
 //--utils.c
-void	open_files(char **av, int ac, t_pipe *pipe);
-char	*ft_get_cmd_path(char *cmd, t_pipe pipex);
-void	execute(t_pipe pipex, char **av, char **env, int type);
+void	open_files(char **av, int ac, int *fd_in, int *fd_out);
+// char	*ft_get_cmd_path(char *cmd, t_pipe pipex);
+// void	execute(t_pipe pipex, char **av, char **env, int type);
 void	ft_fork(int	*pid);
+char	*ft_get_cmd_path(char *cmd, char **paths);
+void	execute(char *av, char **env, char **paths);
+void	redirecte(char *av, char **env, char **paths);
 
 
 
