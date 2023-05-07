@@ -6,7 +6,7 @@
 /*   By: nmaazouz <nmaazouz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/15 17:56:16 by nmaazouz          #+#    #+#             */
-/*   Updated: 2023/05/06 13:17:55 by nmaazouz         ###   ########.fr       */
+/*   Updated: 2023/05/07 18:12:16 by nmaazouz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,12 +33,8 @@
  *  -
  * 
 */
-void	lk()
-{
-	system("leaks pipex");
-}
 
-int main(int ac, char **av, char **env)
+int	main(int ac, char **av, char **env)
 {
 	int		fd_in;
 	int		fd_out;

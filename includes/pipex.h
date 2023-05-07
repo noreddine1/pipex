@@ -6,7 +6,7 @@
 /*   By: nmaazouz <nmaazouz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/19 23:21:45 by nmaazouz          #+#    #+#             */
-/*   Updated: 2023/05/05 04:35:56 by nmaazouz         ###   ########.fr       */
+/*   Updated: 2023/05/07 18:18:22 by nmaazouz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,10 @@
 # define PIPEX_H
 
 # include "../libft/libft.h"
-#include <unistd.h>
-#include <fcntl.h>
-#include <errno.h>
-#include <string.h>
+# include <unistd.h>
+# include <fcntl.h>
+# include <errno.h>
+# include <string.h>
 
 typedef struct s_pipe
 {
@@ -40,23 +40,21 @@ enum e_std{std_in, std_out};
 char	*get_path(char **env);
 
 //---ft_function.c
-void    ft_fork(int *pid);
-void    ft_dup2(int fd1, int fd2);
-void    ft_pipe(int *fd);
+void	ft_fork(int *pid);
+void	ft_dup2(int fd1, int fd2);
+void	ft_pipe(int *fd);
 
 //--error.c
 void	ft_error(char *msg);
 void	ft_errorn(void);
 
+//here_doc.c
+int		open_doc(char **av, int ac, int *fd_in, int *fd_out);
+
 //--utils.c
 void	open_files(char **av, int ac, int *fd_in, int *fd_out);
-// char	*ft_get_cmd_path(char *cmd, t_pipe pipex);
-// void	execute(t_pipe pipex, char **av, char **env, int type);
-void	ft_fork(int	*pid);
 char	*ft_get_cmd_path(char *cmd, char **paths);
 void	execute(char *av, char **env, char **paths);
 void	redirecte(char *av, char **env, char **paths);
-
-
 
 #endif

@@ -6,7 +6,7 @@
 #    By: nmaazouz <nmaazouz@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/04/19 23:30:42 by nmaazouz          #+#    #+#              #
-#    Updated: 2023/05/05 17:04:45 by nmaazouz         ###   ########.fr        #
+#    Updated: 2023/05/06 13:54:46 by nmaazouz         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,7 +27,7 @@ SRC_MA_DIR = src/mandatory/
 
 SRC_SH = error.c utils.c ft_function.c
 SRC_MA = pipex.c
-SRC_BN = pipex_bonus.c
+SRC_BN = pipex_bonus.c herdock.c
 
 SRC_SH_PATH = $(addprefix $(SRC_SH_DIR), $(SRC_SH))
 SRC_MA_PATH = $(addprefix $(SRC_MA_DIR), $(SRC_MA))

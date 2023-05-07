@@ -6,7 +6,7 @@
 /*   By: nmaazouz <nmaazouz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/19 23:19:12 by nmaazouz          #+#    #+#             */
-/*   Updated: 2023/05/06 13:16:54 by nmaazouz         ###   ########.fr       */
+/*   Updated: 2023/05/07 18:14:34 by nmaazouz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ char	*get_path(char **env)
 {
 	while (*env)
 	{
-		if (ft_strncmp(*env,"PATH=", 5) == 0)
+		if (ft_strncmp(*env, "PATH=", 5) == 0)
 			return (*env + 5);
 		env++;
 	}
@@ -58,8 +58,8 @@ char	*ft_get_cmd_path(char *cmd, char **paths)
 
 void	execute(char *av, char **env, char **paths)
 {
-	char *cmd_path;
-	char **args;
+	char	*cmd_path;
+	char	**args;
 
 	args = ft_split(av, ' ');
 	if (args == NULL)
