@@ -6,7 +6,7 @@
 /*   By: nmaazouz <nmaazouz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/19 23:21:45 by nmaazouz          #+#    #+#             */
-/*   Updated: 2023/05/09 22:23:02 by nmaazouz         ###   ########.fr       */
+/*   Updated: 2023/05/09 23:11:42 by nmaazouz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,8 @@ int		open_doc(char **av, int ac, int *fd_in, int *fd_out);
 //--utils.c
 void	open_files(char **av, int ac, int *fd_in, int *fd_out);
 char	*ft_get_cmd_path(char *cmd, char **paths);
-void	execute(char *av, char **env, char **paths);
-int		redirecte(char *av, char **env, char **paths);
+
+//--execute.c
+void	mlt_execute(char **av, int nbr_cmd, char **env, char **paths);
 
 #endif

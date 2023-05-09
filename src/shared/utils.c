@@ -6,7 +6,7 @@
 /*   By: nmaazouz <nmaazouz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/19 23:19:12 by nmaazouz          #+#    #+#             */
-/*   Updated: 2023/05/09 22:22:49 by nmaazouz         ###   ########.fr       */
+/*   Updated: 2023/05/09 22:58:31 by nmaazouz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,41 +54,4 @@ char	*ft_get_cmd_path(char *cmd, char **paths)
 		}
 	}
 	return (NULL);
-}
-
-void	execute(char *av, char **env, char **paths)
-{
-	char	*cmd_path;
-	char	**args;
-
-	args = ft_split(av, ' ');
-	if (args == NULL)
-		ft_error("Error split");
-	if (args[0] == NULL)
-		ft_error("command not found");
-	cmd_path = ft_get_cmd_path(args[0], paths);
-	if (cmd_path == NULL)
-		ft_error("Command not found");
-	execve(cmd_path, args, env);
-}
-
-int	redirecte(char *av, char **env, char **paths)
-{
-	int		fd[2];
-	pid_t	pid;
-
-	ft_pipe(fd);
-	ft_fork(&pid);
-	if (pid == 0)
-	{
-		close(fd[0]);
-		dup2(fd[1], std_out);
-		execute(av, env, paths);
-	}
-	else
-	{
-		close(fd[1]);
-		dup2(fd[0], std_in);
-	}
-	return (pid);
 }

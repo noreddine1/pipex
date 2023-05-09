@@ -6,7 +6,7 @@
 /*   By: nmaazouz <nmaazouz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/15 17:56:16 by nmaazouz          #+#    #+#             */
-/*   Updated: 2023/05/07 18:12:16 by nmaazouz         ###   ########.fr       */
+/*   Updated: 2023/05/09 23:12:15 by nmaazouz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,8 +52,7 @@ int	main(int ac, char **av, char **env)
 		ft_error("split error");
 	ft_dup2(fd_in, std_in);
 	ft_dup2(fd_out, std_out);
-	redirecte(av[2], env, paths);
-	execute(av[3], env, paths);
+	mlt_execute(av + 2, ac - 3, env, paths);
 	free_split(paths);
 	return (0);
 }
