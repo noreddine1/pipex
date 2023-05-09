@@ -6,7 +6,7 @@
 /*   By: nmaazouz <nmaazouz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/19 23:21:45 by nmaazouz          #+#    #+#             */
-/*   Updated: 2023/05/07 18:18:22 by nmaazouz         ###   ########.fr       */
+/*   Updated: 2023/05/09 22:23:02 by nmaazouz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ void	ft_pipe(int *fd);
 
 //--error.c
 void	ft_error(char *msg);
-void	ft_errorn(void);
+void	ft_errorn(char *fuction_name);
 
 //here_doc.c
 int		open_doc(char **av, int ac, int *fd_in, int *fd_out);
@@ -55,6 +55,6 @@ int		open_doc(char **av, int ac, int *fd_in, int *fd_out);
 void	open_files(char **av, int ac, int *fd_in, int *fd_out);
 char	*ft_get_cmd_path(char *cmd, char **paths);
 void	execute(char *av, char **env, char **paths);
-void	redirecte(char *av, char **env, char **paths);
+int		redirecte(char *av, char **env, char **paths);
 
 #endif

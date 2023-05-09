@@ -6,7 +6,7 @@
 /*   By: nmaazouz <nmaazouz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/19 23:19:12 by nmaazouz          #+#    #+#             */
-/*   Updated: 2023/05/07 18:14:34 by nmaazouz         ###   ########.fr       */
+/*   Updated: 2023/05/09 22:22:49 by nmaazouz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,10 +27,10 @@ void	open_files(char **av, int ac, int *in_file, int *out_file)
 {
 	*in_file = open(av[1], O_RDONLY);
 	if (*in_file < 0)
-		ft_errorn();
+		ft_errorn("open_files");
 	*out_file = open(av[ac - 1], O_TRUNC | O_CREAT | O_RDWR, 0644);
 	if (*out_file < 0)
-		ft_errorn();
+		ft_errorn("open_files");
 }
 
 char	*ft_get_cmd_path(char *cmd, char **paths)
@@ -72,7 +72,7 @@ void	execute(char *av, char **env, char **paths)
 	execve(cmd_path, args, env);
 }
 
-void	redirecte(char *av, char **env, char **paths)
+int	redirecte(char *av, char **env, char **paths)
 {
 	int		fd[2];
 	pid_t	pid;
@@ -89,6 +89,6 @@ void	redirecte(char *av, char **env, char **paths)
 	{
 		close(fd[1]);
 		dup2(fd[0], std_in);
-		waitpid(pid, NULL, 0);
 	}
+	return (pid);
 }

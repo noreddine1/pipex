@@ -6,7 +6,7 @@
 /*   By: nmaazouz <nmaazouz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/20 18:32:07 by nmaazouz          #+#    #+#             */
-/*   Updated: 2023/05/07 18:12:33 by nmaazouz         ###   ########.fr       */
+/*   Updated: 2023/05/08 23:45:28 by nmaazouz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,8 @@ void	ft_error(char *msg)
 	exit(EXIT_FAILURE);
 }
 
-void	ft_errorn(void)
+void	ft_errorn(char *function_name)
 {
-	perror("Error");
+	perror(function_name);
 	exit(EXIT_FAILURE);
 }
