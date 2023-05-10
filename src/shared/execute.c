@@ -6,7 +6,7 @@
 /*   By: nmaazouz <nmaazouz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 22:58:01 by nmaazouz          #+#    #+#             */
-/*   Updated: 2023/05/09 23:12:36 by nmaazouz         ###   ########.fr       */
+/*   Updated: 2023/05/10 18:48:31 by nmaazouz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,8 @@ static void	execute(char *av, char **env, char **paths)
 		ft_putendl_fd(cmd_path, 2);
 		ft_error("Command not found");
 	}
-	execve(cmd_path, args, env);
+	if (execve(cmd_path, args, env) == -1)
+		exit(EXIT_FAILURE);
 }
 
 static int	redirecte(char *av, char **env, char **paths)

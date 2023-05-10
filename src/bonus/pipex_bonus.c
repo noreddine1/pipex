@@ -6,7 +6,7 @@
 /*   By: nmaazouz <nmaazouz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/27 13:53:15 by nmaazouz          #+#    #+#             */
-/*   Updated: 2023/05/09 23:11:50 by nmaazouz         ###   ########.fr       */
+/*   Updated: 2023/05/10 18:49:32 by nmaazouz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,5 +37,5 @@ int	main(int ac, char **av, char **env)
 	ft_dup2(fd_out, std_out);
 	mlt_execute(av + i, ac - i - 1, env, paths);
 	free_split(paths);
-	return (0);
+	exit(EXIT_SUCCESS);
 }
