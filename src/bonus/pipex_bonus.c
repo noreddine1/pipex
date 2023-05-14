@@ -6,7 +6,7 @@
 /*   By: nmaazouz <nmaazouz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/27 13:53:15 by nmaazouz          #+#    #+#             */
-/*   Updated: 2023/05/10 18:49:32 by nmaazouz         ###   ########.fr       */
+/*   Updated: 2023/05/14 19:29:22 by nmaazouz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int	main(int ac, char **av, char **env)
 	i = 2;
 	if (ac < 5)
 		ft_errorn("main");
-	if (ft_strncmp(av[0], "here_doc", 9) == 0)
+	if (ft_strncmp(av[1], "here_doc", 9) == 0)
 		i = open_doc(av, ac, &fd_in, &fd_out);
 	else
 		open_files(av, ac, &fd_in, &fd_out);

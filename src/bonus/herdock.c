@@ -6,7 +6,7 @@
 /*   By: nmaazouz <nmaazouz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 13:30:12 by nmaazouz          #+#    #+#             */
-/*   Updated: 2023/05/08 16:02:14 by nmaazouz         ###   ########.fr       */
+/*   Updated: 2023/05/14 19:30:14 by nmaazouz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int	open_doc(char **av, int ac, int *fd_in, int *fd_out)
 	if (*fd_out < 0)
 		ft_errorn("open_doc");
 	line = get_next_line(std_in);
-	while (line && ft_strncmp(av[2], line, ft_strlen(av[2])))
+	while (line && ft_strncmp(av[2], line, ft_strlen(line) - 1))
 	{
 		write(*fd_in, line, ft_strlen(line));
 		free(line);
