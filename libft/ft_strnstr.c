@@ -11,7 +11,6 @@
 /* ************************************************************************** */
 
 #include "libft.h"
-#include<libc.h>
 
 char	*ft_strnstr(const char *haystack, const char *needle, int len)
 {

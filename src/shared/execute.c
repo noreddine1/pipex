@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "pipex.h"
+#include <sys/wait.h>
 
 static void	execute(char *av, char **env, char **paths)
 {
