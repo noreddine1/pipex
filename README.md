@@ -7,8 +7,13 @@ Pipex is a project that replicates the behavior of the Unix shell pipe (`|`). It
 - [Overview](#overview)
 - [Features](#features)
 - [Usage](#usage)
+  - [Mandatory Part](#mandatory-part)
+  - [Bonus Part](#bonus-part)
 - [Installation](#installation)
 - [Examples](#examples)
+  - [Mandatory Examples](#mandatory-examples)
+  - [Bonus Examples](#bonus-examples)
+- [Requirements](#requirements)
 - [License](#license)
 
 ## Overview
@@ -17,11 +22,14 @@ The goal of this project is to deepen your understanding of process creation, fi
 
 ## Features
 
-- Executes two commands connected by a pipe.
+- Executes commands connected by a pipe.
 - Handles input and output redirection.
 - Mimics the behavior of the shell for simple pipelines.
+- Bonus: Supports multiple commands and "here document" functionality.
 
 ## Usage
+
+### Mandatory Part
 
 ```bash
 ./pipex file1 "cmd1" "cmd2" file2
@@ -33,6 +41,22 @@ The goal of this project is to deepen your understanding of process creation, fi
 - `file2`: Output file.
 
 The program redirects the output of `cmd1` to the input of `cmd2`, with `file1` as the input and `file2` as the output.
+
+### Bonus Part
+
+#### Chained Commands
+```bash
+./pipex file1 "cmd1" "cmd2" "cmd3" file2
+```
+
+This extends the mandatory functionality to support an arbitrary number of commands connected by pipes.
+
+#### Here Document
+```bash
+./pipex here_doc DELIMITER "cmd1" "cmd2" file2
+```
+
+This functionality allows input to be provided directly from the command line until a specified `DELIMITER` is encountered.
 
 ## Installation
 
@@ -51,18 +75,56 @@ The program redirects the output of `cmd1` to the input of `cmd2`, with `file1` 
 
 ## Examples
 
-### Example 1
+### Mandatory Examples
+
+#### Example 1
 ```bash
 ./pipex infile "cat" "wc -l" outfile
 ```
-This command reads from `infile`, passes the output of `cat` to `wc -l`, and writes the result to `outfile`.
+- Reads from `infile`.
+- Passes the output of `cat` to `wc -l`.
+- Writes the result to `outfile`.
 
-### Example 2
+#### Example 2
 ```bash
 ./pipex input.txt "grep foo" "sort" output.txt
 ```
-This command filters lines containing "foo" from `input.txt`, sorts them, and writes the result to `output.txt`.
+- Filters lines containing "foo" from `input.txt`.
+- Sorts them.
+- Writes the result to `output.txt`.
 
-<!-- ## License
+### Bonus Examples
 
-This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details. -->
+#### Chained Commands
+```bash
+./pipex file1 "ls -l" "grep txt" "wc -l" file2
+```
+- Reads from `file1`.
+- Executes `ls -l`, pipes the output to `grep txt`, and then to `wc -l`.
+- Writes the result to `file2`.
+
+#### Here Document
+```bash
+./pipex here_doc END "cat" "wc -w" output.txt
+```
+- Reads input from the command line until `END` is encountered.
+- Pipes the input to `cat`, then to `wc -w`.
+- Writes the result to `output.txt`.
+
+## Requirements
+
+- **Mandatory Part**:
+  - Execute two commands connected by a pipe.
+  - Handle input and output redirection.
+- **Bonus Part**:
+  - Support multiple commands connected by pipes.
+  - Implement "here document" functionality.
+- **General**:
+  - Written in C.
+  - Use only allowed functions as specified in the project guidelines.
+  - Properly handle errors (e.g., invalid arguments, file access issues, command execution failures).
+  - Ensure memory and resource management to avoid leaks or dangling file descriptors.
+
+## License
+
+This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
